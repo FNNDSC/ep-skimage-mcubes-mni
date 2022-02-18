@@ -1,19 +1,19 @@
 from setuptools import setup
 
 setup(
-    name             = 'chris-plugin-template',
+    name             = 'ep-skimage-mcubes-mni',
     version          = '1.0.0',
-    description      = 'A ChRIS DS plugin template',
-    author           = 'FNNDSC',
-    author_email     = 'dev@babyMRI.org',
-    url              = 'https://github.com/FNNDSC/python-chrisapp-template',
-    py_modules       = ['app'],
-    install_requires = ['chris_plugin'],
+    description      = 'Marching-cubes implementation from scikit-image',
+    author           = 'Jennings Zhang',
+    author_email     = 'Jennings.Zhang@childrens.harvard.edu',
+    url              = 'https://github.com/jennydaman/ep-skimage-mcubes-mni',
+    py_modules       = ['skimc'],
+    install_requires = ['chris_plugin', 'pybicpl', 'nibabel', 'scikit-image', 'h5py', 'loguru'],
     license          = 'MIT',
-    python_requires  = '>=3.8.2',
+    python_requires  = '>=3.10.2',
     entry_points     = {
         'console_scripts': [
-            'commandname = app:main'
+            'skimc = skimc:main'
             ]
         },
     classifiers      = [
