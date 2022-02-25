@@ -13,6 +13,10 @@ from loguru import logger
 from chris_plugin import chris_plugin, PathMapper
 
 parser = ArgumentParser(description='cli description')
+parser.add_argument('-l', '--level', default=None, type=float,
+                    help='Contour value to search for isosurfaces in volume.'
+                         'If not given or None, the average of the min and max'
+                         ' of vol is used.')
 parser.add_argument('--spacing', default='1,1,1',
                     help='Voxel spacing in spatial dimensions corresponding'
                          ' to numpy array indexing dimensions (M, N, P).')
@@ -29,13 +33,14 @@ parser.add_argument('-p', '--pattern', default='**/*.mnc',
 
 
 def mcubes(mask_path: Path, surface_path: Path,
+           level: float,
            spacing: tuple[float, float, float],
            step_size: int,
            method: str):
     mask = nib.load(mask_path)
     data = mask.get_fdata()
     verts, faces, normals, values = measure.marching_cubes(
-        data, spacing=spacing, step_size=step_size, method=method, allow_degenerate=False
+        data, level=level, spacing=spacing, step_size=step_size, method=method, allow_degenerate=False
     )
     transformed_verts = apply_affine(mask.affine, verts)
     obj = PolygonObj.from_data(transformed_verts, faces, normals)
@@ -60,7 +65,7 @@ def main(options: Namespace, inputdir: Path, outputdir: Path):
     with ThreadPoolExecutor(max_workers=len(os.sched_getaffinity(0))) as pool:
         mapper = PathMapper(inputdir, outputdir, glob=options.pattern, suffix='.obj')
         for mnc, obj in mapper:
-            results.append(pool.submit(mcubes, mnc, obj, spacing, options.step_size, options.method))
+            results.append(pool.submit(mcubes, mnc, obj, options.level, spacing, options.step_size, options.method))
 
     for future in results:
         future.exception()
