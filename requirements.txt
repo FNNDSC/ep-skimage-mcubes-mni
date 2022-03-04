@@ -3,3 +3,4 @@ pybicpl~=0.3.0
 numpy~=1.22.2
 nibabel~=3.2.2
 loguru~=0.6.0
+pycivet==0.0.3
