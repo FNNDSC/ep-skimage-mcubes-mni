@@ -17,7 +17,7 @@ from loguru import logger
 from nibabel.affines import apply_affine
 from skimage import measure
 
-parser = ArgumentParser(description='cli description')
+parser = ArgumentParser(description='scikit-image marching-cubes + mincblur ChRIS plugin')
 parser.add_argument('-l', '--level', default=None, type=float,
                     help='Contour value to search for isosurfaces in volume.'
                          'If not given or None, the average of the min and max'
