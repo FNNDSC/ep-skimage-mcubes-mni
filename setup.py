@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name             = 'ep-skimage-mcubes-mni',
-    version          = '1.2.0',
+    version          = '1.2.1',
     description      = 'Marching-cubes implementation from scikit-image',
     author           = 'Jennings Zhang',
     author_email     = 'Jennings.Zhang@childrens.harvard.edu',

@@ -1,4 +1,4 @@
-chris_plugin~=0.0.10
+chris_plugin~=0.0.17
 pybicpl~=0.3.0
 numpy~=1.22.2
 nibabel~=3.2.2
